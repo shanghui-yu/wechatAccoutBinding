@@ -115,7 +115,7 @@
                         url: 'https://sso.360che.com/?c=user',
                         dataType: 'jsonp',
                         success: function(res){
-                            if(res.status){
+                            if(res.status == 'err'){
                                 me.BindStatus = false;
                                 try{
                                     var saveData = localStorage.getItem('truckhomeAccountBinding');
