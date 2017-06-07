@@ -1,0 +1,33 @@
+{
+  "name": "Unfield",
+  "version": "2.0.0",
+  "description": "微信账号授权与绑定登录，切换原站登录,项目代号安菲尔德",
+  "main": "./src/index.js",
+  "scripts": {
+    "build": "rimraf ./dist/* && webpack -p"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/360CHE/wechatAccoutBinding.git"
+  },
+  "keywords": [
+    "Wechat",
+    "TruckHome",
+    "OAuth",
+    "Accout",
+    "Binding"
+  ],
+  "author": "ZP",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/360CHE/wechatAccoutBinding/issues"
+  },
+  "homepage": "https://github.com/360CHE/wechatAccoutBinding#readme",
+  "dependencies": {
+    "axios": "^0.16.2"
+  },
+  "devDependencies": {
+    "rimraf": "^2.6.1",
+    "webpack": "^2.6.1"
+  }
+}
