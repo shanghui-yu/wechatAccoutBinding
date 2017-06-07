@@ -5,7 +5,11 @@
     };
     function accountBinding(){
         define(function(require,exports){
-            var style = document.createElement('style');
+            var style = document.createElement('style'),
+                weui = document.createElement('link');
+                weui.rel = 'stylesheet';
+                weui.href = 'https://res.wx.qq.com/open/libs/weui/0.4.2/weui.min.css';
+            document.head.appendChild(weui);
             style.innerText = '.truckhome-account-binding{position: fixed;left:0;top:0;width:100%;height:100%;overflow: hidden;background-color: #fbf9fe;z-index: 1001;visibility: hidden;opacity:0;pointer-events: none;-webkit-transform: translate3d(0,100%,0);transform: translate3d(0,100%,0);-webkit-transition: all .2s ease-out;transition: all .2s ease-out}.truckhome-account-binding.visible{-webkit-transform: translate3d(0,0,0);transform: translate3d(0,0,0);opacity: 1;visibility: visible;pointer-events: all;}.weui_vcode .weui_cell_ft .vcode{margin-left: 5px;width:107px;height: 44px;line-height:44px;vertical-align: middle;display:inline-block;color:#fff;font-size: 14px;text-align: center;background:rgba(4,190,2,1)}.weui_vcode .weui_cell_ft .vcode.disabled{color:#999;background: #f5f5f5}.truckhome-account-binding .weui_btn_area{display: -webkit-box;display: -webkit-flex;display: flex;}.truckhome-account-binding .weui_btn_area > *{-webkit-box-flex: 1;-webkit-flex: 1;flex: 1}.truckhome-account-binding .weui_btn_area input[type="submit"]{margin:0 0 0 10px;border-radius: 5px;}.truckhome-account-binding .weui_btn_area input[disabled]{opacity: 1}.truckhome-account-binding .weui_label{width:80px}';
             document.head.appendChild(style);
             var tel_signin = '<form method="POST" action="https:///sso.360che.com/index.php?c=login&m=login" autocomplete="off">\
@@ -30,7 +34,7 @@
                         </div>\
                     </div>\
                 </div>\
-                <input type="hidden" value="'+ document.referrer ? document.referrer : location.href +'" />\
+                <input type="hidden" name="referer" value="\'+ document.referrer ? document.referrer : location.href +\'" />\
                 <div class="weui_btn_area">\
                     <a href="javascript:;" class="weui_btn weui_btn_default">\u53d6\u6d88</a>\
                     <input type="submit" class="weui_btn weui_btn_primary weui_btn_disabled" value="\u767b\u5f55" disabled />\
@@ -41,13 +45,14 @@
                     <a href="javascript:;" class="account_switch">\u624b\u673a\u53f7\u7801\u7ed1\u5b9a</a>\
                 </div>\
             </div>';
-            var tel_binding = '<form method="POST" action="https://sso.360che.com/index.php?c=login&m=login" autocomplete="off">\
+
+            var tel_binding = '<form method="POST" action="https://sso.360che.com/index.php?c=login&m=login&auth=1" autocomplete="off">\
                 <div class="weui_cells_title">\u624b\u673a\u53f7\u7801\u7ed1\u5b9a</div>\
                 <div class="weui_cells weui_cells_form">\
                     <div class="weui_cell">\
                         <div class="weui_cell_hd"><label class="weui_label">\u624b\u673a\u53f7</label></div>\
                         <div class="weui_cell_bd weui_cell_primary">\
-                            <input class="weui_input" type="tel" name="phone" pattern="^1(([38]\\d)|(4[57])|(5[012356789])|(7[01678]))\\d{8}$" placeholder="\u8bf7\u8f93\u5165\u624b\u673a\u53f7" maxlength="11" />\
+                            <input class="weui_input" type="tel" name="phone" placeholder="\u8bf7\u8f93\u5165\u624b\u673a\u53f7" maxlength="11" />\
                         </div>\
                         <div class="weui_cell_ft">\
                             <i class="weui_icon_warn"></i>\
@@ -64,7 +69,7 @@
                         </div>\
                     </div>\
                 </div>\
-                <input type="hidden" value="'+ document.referrer ? document.referrer : location.href +'" />\
+                <input type="hidden" name="referer" value="\'+ document.referrer ? document.referrer : location.href +\'" />\
                 <div class="weui_btn_area">\
                     <a href="javascript:;" class="weui_btn weui_btn_default">\u53d6\u6d88</a>\
                     <input type="submit" class="weui_btn weui_btn_disabled weui_btn_primary" value="\u7ed1\u5b9a" disabled />\
@@ -241,7 +246,7 @@
                     }
                 },
                 vcode: function(button){             // 获取验证码
-                    var me = this,form = container.querySelector('form'),phone = form.elements['tel'],value = form.data['tel'],pattern = new RegExp(phone.pattern);
+                    var me = this,form = container.querySelector('form'),phone = form.elements['phone'],value = form.data['phone'],pattern = new RegExp('^1(([38]\\d)|(4[57])|(5[012356789])|(7[01678]))\\d{8}$');
                     if(!value){
                         this.error('\u8bf7\u586b\u5199\u624b\u673a\u53f7',phone) // 请填写手机号
                         return;
@@ -252,7 +257,7 @@
                     this.speed = 61;
                     $.ajax({
                         url: 'https://sso.360che.com/index.php?c=phone&m=getPhoneCodeByLogin',
-                        data:{tel: form.data['tel']},
+                        data:{tel: form.data['phone']},
                         dataType: 'jsonp',
                         success: function(res){
                             if(res.status == 'err'){
@@ -299,7 +304,7 @@
                     var submit = form.querySelector('form input[type="submit"]');
                     switch (this.mode) {
                         case 'binding':
-                            if(form.data['tel'] && form.data['tel'].length == 11 && form.data['yzm'] && form.data['yzm'].length == 4){
+                            if(form.data['phone'] && form.data['phone'].length == 11 && form.data['phonecode'] && form.data['phonecode'].length == 4){
                                 this.enabled(submit);
                             }else{
                                 this.disabled(submit);
