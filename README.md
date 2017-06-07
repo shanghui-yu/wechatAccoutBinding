@@ -56,11 +56,22 @@ msg: '未授权'
 
 
 ## show (显示绑定/登录弹层)
+-显示绑定/登录弹层
+-添加GA统计
+```
+	Category: '登录流程',
+	Action: '跳出手机号绑定弹层',
+	Label: ''
+
+```
+
 
 ## hide (隐藏绑定/登录弹层)
+-隐藏绑定/登录弹层
 
 ## switch (切换绑定/登录)
-switch mode
+-切换绑定/登录状态，界面
+-witch mode
 
 ## modal (状态提示)
 - alert
@@ -79,13 +90,13 @@ Pattern: ^1(([38]\d)|(4[57])|(5[012356789])|(7[012356789]))\d{8}$
 tel | string | 1 | 手机号
 
 ### Response
-#### ERROR
+- ERROR
 ```
 status: 'err', // 错误
 info: 'tel', // 错误参数的名称 例如：手机号格式错误
 msg: '提交参数错误！'
 ```
-#### SUCCESS
+- SUCCESS
 ```
 status: 'ok', // 错误
 info: '',
@@ -99,6 +110,7 @@ msg: '验证码已成功发送，请注意查收'
 ## onInputHandle
 输入检测，用于激活提交按钮 
 en(dis)abled submitButton
+
 
 ## submit (提交)
 ### 原站登录
@@ -116,13 +128,13 @@ password | string | 1 | 密码
 referer | string | 1 | 来源
 
 ### Response
-#### ERROR
+- ERROR
 ```
 status: 'err', // 错误
 info: 'field', // 错误参数的名称
 msg: '提交参数错误！'	// 提交参数错误！| 用户名或密码错误 
 ```
-#### SUCCESS
+- SUCCESS
 ```
 status: 'ok',
 info: {
@@ -134,8 +146,6 @@ msg: '登录成功'
 
 
 ### 手机号绑定
-
-
 ```
 Action：//sso.360che.com/index.php?c=login&m=login
 Method：POST
@@ -148,13 +158,13 @@ phonecode | string | 1 | 验证码
 referer | string | 1 | 来源
 
 ### Response
-#### ERROR
+- ERROR
 ```
 status: 'err', // 错误
 info: 'field', // 错误参数的名称
 msg: '提交参数错误！'	// 提交参数错误！| 手机号或验证码错误 
 ```
-#### SUCCESS
+- SUCCESS
 ```
 status: 'ok',
 info: {
@@ -163,5 +173,11 @@ info: {
 },
 msg: '绑定成功'
 ```
+- 添加GA统计
+```
+	Category: '登录流程',
+	Action: '绑定成功',
+	Label: ''
 
+```
 	
