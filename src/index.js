@@ -8,7 +8,7 @@
             var style = document.createElement('style');
             style.innerText = '.truckhome-account-binding{position: fixed;left:0;top:0;width:100%;height:100%;overflow: hidden;background-color: #fbf9fe;z-index: 1001;visibility: hidden;opacity:0;pointer-events: none;-webkit-transform: translate3d(0,100%,0);transform: translate3d(0,100%,0);-webkit-transition: all .2s ease-out;transition: all .2s ease-out}.truckhome-account-binding.visible{-webkit-transform: translate3d(0,0,0);transform: translate3d(0,0,0);opacity: 1;visibility: visible;pointer-events: all;}.weui_vcode .weui_cell_ft .vcode{margin-left: 5px;width:107px;height: 44px;line-height:44px;vertical-align: middle;display:inline-block;color:#fff;font-size: 14px;text-align: center;background:rgba(4,190,2,1)}.weui_vcode .weui_cell_ft .vcode.disabled{color:#999;background: #f5f5f5}.truckhome-account-binding .weui_btn_area{display: -webkit-box;display: -webkit-flex;display: flex;}.truckhome-account-binding .weui_btn_area > *{-webkit-box-flex: 1;-webkit-flex: 1;flex: 1}.truckhome-account-binding .weui_btn_area input[type="submit"]{margin:0 0 0 10px;border-radius: 5px;}.truckhome-account-binding .weui_btn_area input[disabled]{opacity: 1}.truckhome-account-binding .weui_label{width:80px}';
             document.head.appendChild(style);
-            var tel_signin = '<form method="POST" action="//sso.360che.com/index.php?c=login&m=login" autocomplete="off">\
+            var tel_signin = '<form method="POST" action="https:///sso.360che.com/index.php?c=login&m=login" autocomplete="off">\
                 <div class="weui_cells_title">\u5361\u8f66\u4e4b\u5bb6\u8d26\u53f7\u767b\u5f55</div>\
                 <div class="weui_cells weui_cells_form">\
                     <div class="weui_cell">\
@@ -41,7 +41,7 @@
                     <a href="javascript:;" class="account_switch">\u624b\u673a\u53f7\u7801\u7ed1\u5b9a</a>\
                 </div>\
             </div>';
-            var tel_binding = '<form method="POST" action="//sso.360che.com/index.php?c=login&m=login" autocomplete="off">\
+            var tel_binding = '<form method="POST" action="https://sso.360che.com/index.php?c=login&m=login" autocomplete="off">\
                 <div class="weui_cells_title">\u624b\u673a\u53f7\u7801\u7ed1\u5b9a</div>\
                 <div class="weui_cells weui_cells_form">\
                     <div class="weui_cell">\
@@ -106,8 +106,8 @@
                 },
                 checkBind:function(){        // 检查绑定状态
                     var me = this;
-                    exports.ajax({
-                        url: '//sso.360che.com/?c=user',
+                    $.ajax({
+                        url: 'https://sso.360che.com/?c=user',
                         dataType: 'jsonp',
                         success: function(res){
                             if(res.status){
@@ -128,8 +128,8 @@
                 checkOAuth: function(){        // 微信授权
                     var me = this;   
                     if(!window.unionid){
-                        exports.ajax({
-                            url: '//sso.360che.com/index.php?c=weChatOauthUrl&m=getAuthUrl',
+                        $.ajax({
+                            url: 'https://sso.360che.com/index.php?c=weChatOauthUrl&m=getAuthUrl',
                             dataType: 'jsonp',
                             success: function(res){
                                 if(res.status == 'err'){    // 已授权
@@ -250,8 +250,8 @@
                         return;
                     }
                     this.speed = 61;
-                    exports.ajax({
-                        url: '//sso.360che.com/index.php?c=phone&m=getPhoneCodeByLogin',
+                    $.ajax({
+                        url: 'https://sso.360che.com/index.php?c=phone&m=getPhoneCodeByLogin',
                         data:{tel: form.data['tel']},
                         dataType: 'jsonp',
                         success: function(res){
@@ -327,7 +327,7 @@
                     var submit = form.querySelector('input[type="submit"]'),me = this;
                     this.disabled(submit);
                     this.toast('loading',true,'\u63d0\u4ea4\u4e2d\uff0c\u8bf7\u7a0d\u540e...'); // 提交中，请稍后
-                    exports.ajax({
+                    $.ajax({
                         url: form.action,
                         data: form.data,
                         dataType: 'jsonp',
@@ -346,7 +346,7 @@
                                 me.error(res.msg);
                             };
                             me.toast('loading',false);
-                            window.ga && ga('登录流程','绑定成功')
+                            window.ga && ga('\u767b\u5f55\u6d41\u7a0b','\u7ed1\u5b9a\u6210\u529f')
                         },
                         error:function(){
                             me.enabled(submit);
@@ -380,13 +380,12 @@
             window.addEventListener('hashchange',function(){
                 truckhomeAccountBinding.cancel();
             });
-            exports.truckhomeAccountBinding = truckhomeAccountBinding;
             window.truckhomeAccountBinding = truckhomeAccountBinding;
         });
     };
     if(!window.define){
         var tjs = document.createElement('script');
-        tjs.src = '//s.kcimg.cn/public/m/js/t.min.js';
+        tjs.src = 'https://s.kcimg.cn/public/m/js/t.min.js';
         tjs.onload = function(){
             accountBinding();
         };
