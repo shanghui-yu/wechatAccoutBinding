@@ -171,11 +171,11 @@
                             if(!container.innerHTML)
                             container.innerHTML = tel_binding;
                             callback && (this.submitCallback = callback);
+                            window.ga && ga('send', 'event','\u767b\u5f55\u6d41\u7a0b','\u8df3\u51fa\u624b\u673a\u53f7\u7ed1\u5b9a\u5f39\u5c42')
                         }else{
                             if(callback && Function.isFunction(callback))
                             callback();
                         }
-                        window.ga && ga('\u767b\u5f55\u6d41\u7a0b','\u8df3\u51fa\u624b\u673a\u53f7\u7ed1\u5b9a\u5f39\u5c42')
                     }
                 },
                 hide: function(){                    // 隐藏
@@ -187,6 +187,7 @@
                         case 'binding':
                             container.innerHTML = tel_signin;
                             this.mode = 'signin';
+                            window.ga && ga('send', 'event','\u767b\u5f55\u6d41\u7a0b','\u70b9\u51fb\u5361\u8f66\u4e4b\u5bb6\u8d26\u53f7\u767b\u5f55')
                             break;
                         case 'signin':
                             container.innerHTML = tel_binding;
@@ -351,7 +352,7 @@
                                 me.error(res.msg);
                             };
                             me.toast('loading',false);
-                            window.ga && ga('\u767b\u5f55\u6d41\u7a0b','\u7ed1\u5b9a\u6210\u529f')
+                            window.ga && ga('send', 'event','\u767b\u5f55\u6d41\u7a0b','\u7ed1\u5b9a\u6210\u529f')
                         },
                         error:function(){
                             me.enabled(submit);
