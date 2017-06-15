@@ -81,13 +81,21 @@
                 </div>\
             </div>';
             var container = document.querySelector('#truckhome_account_binding');
-            var unionid = document.cookie.match(/AbcfN_unionid=([^;$]+)/);
-            if(unionid && unionid[1]){
-                Object.defineProperty(window,'unionid',{
+            var cookie = document.cookie;
+            var unionid = cookie.match(/AbcfN_unionid=([^;$]+)/);
+            var userid = cookie.match(/AbcfN_ajaxuid=([^;$]+)/)
+            if(unionid && unionid[1]){      // 授权依据
+                Object.defineProperty(window,'UNIONID',{
                     writable:false,
                     value:unionid[1]
                 });
             };
+            if(userid && userid[1]){        // 登录依据
+               Object.defineProperty(window,'USERID',{
+                    writable:false,
+                    value:userid[1]
+                });
+            }
 
             if(!container){
                 container = document.createElement('div');
@@ -97,22 +105,33 @@
                 });
                 document.body.appendChild(container);
             };
-
+            /*
+                * 检测是否登录
+                * 检测是否授权
+                * 检测是否绑定
+            */
             var truckhomeAccountBinding = {
-                init:function(){            // 初始化
-                    if(window.bindUserid){
+                init: function(){            // 初始化
+                    if(window.USERID){
+                        this.OAuthStatus = true;
+                        this.signStatus = true;
                         this.BindStatus = true;
                     }else{
                         this.mode = 'binding';
                         container.classList.contains('visible') && container.classList.remove('visible');
-                        this.checkOAuth();
-                        this.onInputHandle();
+                        if(!window.UNIONID){
+                            this.checkOAuth()
+                        }else{
+                            this.OAuthStatus = true;
+                            this.checkBind()
+                        }
+                        this.onInputHandle()
                     }
                 },
-                checkBind:function(){        // 检查绑定状态
+                checkBind: function(){        // 检查绑定状态
                     var me = this;
                     $.ajax({
-                        url: 'https://sso.360che.com/?c=user',
+                        url: 'https://sso.360che.com/index.php?c=weChatOauthUrl&m=getBindStatus',
                         dataType: 'jsonp',
                         success: function(res){
                             if(res.status == 'err'){
@@ -125,34 +144,31 @@
                                     }
                                 }catch(err){}
                             }else{
-                                me.BindStatus = true;    
+                                me.BindStatus = true;
+                                if(!me.signStatus)  // 未登录去自动登录
+                                location.href = 'https://sso.360che.com/index.php?c=login&referer=' + location.href    
                             }
                         }
-                    });
+                    })
                 },
                 checkOAuth: function(){        // 微信授权
                     var me = this;   
-                    if(!window.unionid){
-                        $.ajax({
-                            url: 'https://sso.360che.com/index.php?c=weChatOauthUrl&m=getAuthUrl',
-                            dataType: 'jsonp',
-                            success: function(res){
-                                if(res.status == 'err'){    // 已授权
-                                    me.OAuthStatus = true;
-                                    me.checkBind();
-                                }else{                      // 未授权
-                                    me.OAuthStatus = false;
-                                    me.OAuthUrl = res.info['url'];
-                                }
+                    $.ajax({
+                        url: 'https://sso.360che.com/index.php?c=weChatOauthUrl&m=getAuthUrl',
+                        dataType: 'jsonp',
+                        success: function(res){
+                            if(res.status == 'err'){    // 已授权
+                                me.OAuthStatus = true;
+                                me.checkBind();
+                            }else{                      // 未授权
+                                me.OAuthStatus = false;
+                                me.OAuthUrl = res.info['url'];
                             }
-                        })
-                    }else{
-                        this.OAuthStatus = true;
-                        this.checkBind();
-                    }
+                        }
+                    })
                 },
                 show: function(callback){                    // 显示
-                    if(!this.OAuthStatus){
+                    if(!this.OAuthStatus){      // 未授权
                         var saveData = {
                             "truckhomeAccountBinding":1  
                         };
@@ -161,18 +177,18 @@
                         setTimeout(function(){
                             location.href = truckhomeAccountBinding.OAuthUrl;
                         },20);
-                    }else{
+                    }else{                      // 已授权
                         try{
                             localStorage.getItem('truckhomeAccountBinding') && localStorage.removeItem('truckhomeAccountBinding');
                         }catch(err){};
-                        if(!this.BindStatus){
+                        if(!this.BindStatus){       // 未绑定
                             container.classList.add('visible');
                             location.hash = '#' + this.mode;
                             if(!container.innerHTML)
                             container.innerHTML = tel_binding;
                             callback && (this.submitCallback = callback);
                             window.ga && ga('send', 'event','\u767b\u5f55\u6d41\u7a0b','\u8df3\u51fa\u624b\u673a\u53f7\u7ed1\u5b9a\u5f39\u5c42')
-                        }else{
+                        }else{                   // 已绑定
                             if(callback && Function.isFunction(callback))
                             callback();
                         }
