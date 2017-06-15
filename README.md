@@ -2,17 +2,21 @@
 微信账号授权与绑定登录，切换原站登录
 此文件的任何修改都必须与本仓库的代码保持一致，如不能拉取最新或不能同步至此，任何人不得修改此文件
 
-## VERSION
+## Change Log
 ### 2.0.2
 - 新增检测绑定接口
 - 新增自动登录功能，避免由于Cookie丢失导致的重新绑定
 - 检测绑定和授权从通过接口检测改为直接由Cookie中的AbcfN_ajaxuid和unionid
+- 文件地址：[https://s.kcimg.cn/public/wechat/wechat.accout.binding.2.0.2.min.js](https://s.kcimg.cn/public/wechat/wechat.accout.binding.2.0.2.min.js)
 ### 2.0.1 
 - 切换绑定和登录按钮添加GA统计
+- 文件地址：[https://s.kcimg.cn/public/wechat/wechat.accout.binding.2.0.1.min.js](https://s.kcimg.cn/public/wechat/wechat.accout.binding.2.0.1.min.js)
 
 ### 2.0.0
 - 统一当前的版本碎片化
 - 重新梳理了检测，授权，绑定的流程和逻辑
+- 添加过程GA监测
+- 文件地址：[https://s.kcimg.cn/public/wechat/wechat.accout.binding.2.0.0.min.js](https://s.kcimg.cn/public/wechat/wechat.accout.binding.2.0.0.min.js)
 
 ## 提纲
 - 卡车之家账号登录
