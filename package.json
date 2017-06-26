@@ -1,6 +1,6 @@
 {
   "name": "Unfield",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "微信账号授权与绑定登录，切换原站登录,项目代号安菲尔德",
   "main": "./src/index.js",
   "scripts": {

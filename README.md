@@ -18,7 +18,7 @@
 - 添加过程GA监测
 - 文件地址：[https://s.kcimg.cn/public/wechat/wechat.accout.binding.2.0.0.min.js](https://s.kcimg.cn/public/wechat/wechat.accout.binding.2.0.0.min.js)
 
-## 提纲
+## 提纲 
 - 卡车之家账号登录
 - 手机号码绑定
 

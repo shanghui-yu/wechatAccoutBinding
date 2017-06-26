@@ -7,6 +7,7 @@ module.exports = {
   },
   output: {
     filename: '[name].'+ version +'.min.js',
+    //filename: '[name].test.min.js',
     path: path.resolve(__dirname, 'dist')
   }
 }

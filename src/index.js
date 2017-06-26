@@ -34,7 +34,7 @@
                         </div>\
                     </div>\
                 </div>\
-                <input type="hidden" name="referer" value="\'+ document.referrer ? document.referrer : location.href +\'" />\
+                <input type="hidden" name="referer" value="\'+ location.href +\'" />\
                 <div class="weui_btn_area">\
                     <a href="javascript:;" class="weui_btn weui_btn_default">\u53d6\u6d88</a>\
                     <input type="submit" class="weui_btn weui_btn_primary weui_btn_disabled" value="\u767b\u5f55" disabled />\
@@ -69,7 +69,7 @@
                         </div>\
                     </div>\
                 </div>\
-                <input type="hidden" name="referer" value="\'+ document.referrer ? document.referrer : location.href +\'" />\
+                <input type="hidden" name="referer" value="\'+ location.href +\'" />\
                 <div class="weui_btn_area">\
                     <a href="javascript:;" class="weui_btn weui_btn_default">\u53d6\u6d88</a>\
                     <input type="submit" class="weui_btn weui_btn_disabled weui_btn_primary" value="\u7ed1\u5b9a" disabled />\

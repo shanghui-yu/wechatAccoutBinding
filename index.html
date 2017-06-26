@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>微信授权绑定</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+	<style>
+		figure{
+			margin: 0;
+			padding: 0;
+			display: flex; 
+			line-height: 80px;	
+		}
+		figure figcaption{
+			margin-left: 10px;
+			font-family: "Microsoft YaHei"
+		}
+		#button{
+			margin: 10px 0;
+			height:40px;
+			line-height: 40px;
+			color: #fff;
+			text-align:center;
+			cursor:pointer;
+			background: #f00;
+			font-family: "Microsoft YaHei"
+		}
+	</style>
+</head>
+<body>
+	<figure style="">
+		<img src="http://temp.im/80x80" alt="" id="avatar">
+		<figcaption id="nickname">未登录</figcaption>
+	</figure>
+	<div id="button">测试微信登录啊</div>
+	<script src="https://s.kcimg.cn/public/wechat/wechat.accout.binding.2fc884e.min.js"></script>
+	<script>
+		var cookie = document.cookie; 
+		button.addEventListener('click',function(){
+			 truckhomeAccountBinding.show()
+		})
+		window.addEventListener('load',function(){
+			nickname.innerHTML = decodeURIComponent(cookie.match(/AbcfN_nickname=([^;$]+)/)[1])
+			avatar.src = decodeURIComponent(cookie.match(/AbcfN_avatar=([^;$]+)/)[1])
+		});
+	</script>
+</body>
+</html>
