@@ -3,6 +3,11 @@
 此文件的任何修改都必须与本仓库的代码保持一致，如不能拉取最新或不能同步至此，任何人不得修改此文件
 
 ## Change Log
+### 2.0.4
+- 新增检测手机验证码类型接口，分别执行短信验证码和语音验证码
+- 在调取绑定和登录的时候执行检测
+- 通过webpack 把js中的tel_binding和tel_signin还有样式分成了三个小模块，去掉了扩展的parents方法
+- 文件地址：[https://s.kcimg.cn/public/wechat/wechat.accout.binding.2.0.4.min.js](https://s.kcimg.cn/public/wechat/wechat.accout.binding.2.0.2.min.js)
 ### 2.0.2
 - 新增检测绑定接口
 - 新增自动登录功能，避免由于Cookie丢失导致的重新绑定

@@ -1,6 +1,6 @@
 {
   "name": "Unfield",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "微信账号授权与绑定登录，切换原站登录,项目代号安菲尔德",
   "main": "./src/index.js",
   "scripts": {
@@ -27,6 +27,10 @@
     "axios": "^0.16.2"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
     "rimraf": "^2.6.1",
     "webpack": "^2.6.1"
   }
